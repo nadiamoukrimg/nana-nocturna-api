@@ -12,7 +12,7 @@ POST {{baseUrl}}/api/products
 Content-Type: application/json
 
 {
-  "nombre": "Moonlit Revenant",
+  "nombre": "Moonlit Revenant - Prueba HTTP",
   "descripcion": "Espejo artesanal grabado a mano con detalles dorados y estética ritual.",
   "categoria": "espejo",
   "precio": 30,
