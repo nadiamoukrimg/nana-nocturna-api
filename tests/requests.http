@@ -1,0 +1,77 @@
+@baseUrl = http://localhost:3000
+@id = 6ab56d09431504c85e04cabb
+
+### Obtener todas las piezas
+GET {{baseUrl}}/api/products
+
+### Obtener esta pieza por su ID
+GET {{baseUrl}}/api/products/{{id}}
+
+### Crear una pieza
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+
+{
+  "nombre": "Moonlit Revenant",
+  "descripcion": "Espejo artesanal grabado a mano con detalles dorados y estética ritual.",
+  "categoria": "espejo",
+  "precio": 30,
+  "estado": "disponible",
+  "disponible": true,
+  "imagen": "Moonlit Revenant1.jpeg",
+  "imagenesGaleria": [
+    "Moonlit Revenant2.jpeg",
+    "Moonlit Revenant3.jpeg",
+    "Moonlit Revenant4.jpeg",
+    "Moonlit Revenant5.jpeg",
+    "Moonlit Revenant6.jpeg",
+    "Moonlit Revenant7.jpeg"
+  ],
+  "materiales": [
+    "Glass",
+    "paper",
+    "engraving ink"
+  ],
+  "medidas": "18 x 21 cm",
+  "coleccion": "THE THINGS WE BURY",
+  "piezaUnica": false,
+  "personalizable": false,
+  "fechaCreacion": "2026-07-08",
+  "creadoPor": "Nadia"
+}
+
+### Actualizar esta pieza
+PUT {{baseUrl}}/api/products/{{id}}
+Content-Type: application/json
+
+{
+  "nombre": "Moonlit Revenant",
+  "descripcion": "Texto actualizado para probar PUT.",
+  "categoria": "espejo",
+  "precio": 30,
+  "estado": "disponible",
+  "disponible": true,
+  "imagen": "Moonlit Revenant1.jpeg",
+  "imagenesGaleria": [
+    "Moonlit Revenant2.jpeg",
+    "Moonlit Revenant3.jpeg",
+    "Moonlit Revenant4.jpeg",
+    "Moonlit Revenant5.jpeg",
+    "Moonlit Revenant6.jpeg",
+    "Moonlit Revenant7.jpeg"
+  ],
+  "materiales": [
+    "Glass",
+    "paper",
+    "engraving ink"
+  ],
+  "medidas": "18 x 21 cm",
+  "coleccion": "THE THINGS WE BURY",
+  "piezaUnica": false,
+  "personalizable": false,
+  "fechaCreacion": "2026-07-08",
+  "creadoPor": "Nadia"
+}
+
+### Eliminar esta pieza
+DELETE {{baseUrl}}/api/products/{{id}}

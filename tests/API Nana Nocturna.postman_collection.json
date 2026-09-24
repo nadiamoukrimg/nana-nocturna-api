@@ -1,0 +1,123 @@
+{
+  "info": {
+    "_postman_id": "0ba0f6c2-9c19-4924-8b88-67286ee0f7b2",
+    "name": "API Nana Nocturna",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58504174",
+    "_collection_link": "https://go.postman.co/collection/58504174-0ba0f6c2-9c19-4924-8b88-67286ee0f7b2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Obtener todas las piezas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear pieza de prueba",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Moonlit Revenant - prueba Postman\",\r\n  \"descripcion\": \"Pieza de prueba creada desde Postman.\",\r\n  \"categoria\": \"espejo\",\r\n  \"precio\": 30,\r\n  \"estado\": \"disponible\",\r\n  \"disponible\": true,\r\n  \"imagen\": \"Moonlit Revenant1.jpeg\",\r\n  \"imagenesGaleria\": [\r\n    \"Moonlit Revenant2.jpeg\",\r\n    \"Moonlit Revenant3.jpeg\",\r\n    \"Moonlit Revenant4.jpeg\",\r\n    \"Moonlit Revenant5.jpeg\",\r\n    \"Moonlit Revenant6.jpeg\",\r\n    \"Moonlit Revenant7.jpeg\"\r\n  ],\r\n  \"materiales\": [\r\n    \"Glass\",\r\n    \"paper\",\r\n    \"engraving ink\"\r\n  ],\r\n  \"medidas\": \"18 x 21 cm\",\r\n  \"coleccion\": \"THE THINGS WE BURY\",\r\n  \"piezaUnica\": false,\r\n  \"personalizable\": false,\r\n  \"fechaCreacion\": \"2026-07-08\",\r\n  \"creadoPor\": \"Nadia\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/products",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Actualizar pieza de prueba",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/6ab56d09431504c85e04cabb",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "6ab56d09431504c85e04cabb"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eliminar pieza de prueba",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/6ab56d09431504c85e04cabb",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "6ab56d09431504c85e04cabb"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Obtener pieza por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/products/6a9744edf2fe7955750fb530",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "products",
+            "6a9744edf2fe7955750fb530"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
