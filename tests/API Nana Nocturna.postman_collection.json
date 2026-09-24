@@ -60,7 +60,22 @@
       "name": "Actualizar pieza de prueba",
       "request": {
         "method": "PUT",
-        "header": [],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"nombre\": \"Moonlit Revenant - prueba Postman\",\r\n  \"descripcion\": \"Descripción actualizada desde Postman.\",\r\n  \"categoria\": \"espejo\",\r\n  \"precio\": 30,\r\n  \"estado\": \"disponible\",\r\n  \"disponible\": true,\r\n  \"imagen\": \"Moonlit Revenant1.jpeg\",\r\n  \"imagenesGaleria\": [\r\n    \"Moonlit Revenant2.jpeg\",\r\n    \"Moonlit Revenant3.jpeg\",\r\n    \"Moonlit Revenant4.jpeg\",\r\n    \"Moonlit Revenant5.jpeg\",\r\n    \"Moonlit Revenant6.jpeg\",\r\n    \"Moonlit Revenant7.jpeg\"\r\n  ],\r\n  \"materiales\": [\r\n    \"Glass\",\r\n    \"paper\",\r\n    \"engraving ink\"\r\n  ],\r\n  \"medidas\": \"18 x 21 cm\",\r\n  \"coleccion\": \"THE THINGS WE BURY\",\r\n  \"piezaUnica\": false,\r\n  \"personalizable\": false,\r\n  \"fechaCreacion\": \"2026-07-08\",\r\n  \"creadoPor\": \"Nadia\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
           "raw": "http://localhost:3000/api/products/6ab56d09431504c85e04cabb",
           "protocol": "http",

@@ -3,7 +3,7 @@
 API REST para consultar y gestionar las piezas de Nana Nocturna. Está construida con Node.js, Express y Mongoose, y se conecta a la base de datos `nana_nocturna` de MongoDB Atlas.
 
 - Repositorio: [nana-nocturna-api](https://github.com/nadiamoukrimg/nana-nocturna-api)
-- URL de Vercel: pendiente de despliegue.
+- URL de Vercel: [https://nana-nocturna-api.vercel.app](https://nana-nocturna-api.vercel.app/).
 
 ## Tecnologías
 
@@ -124,9 +124,9 @@ El POST crea un documento nuevo. Para PUT y DELETE, utiliza el ID devuelto por e
 
 El backend se encuentra en la raíz de este repositorio. Importa el repositorio desde GitHub en Vercel y deja **Root Directory** en `./`. Vercel puede detectar la aplicación Express exportada desde `src/app.js`.
 
-En la configuración del proyecto de Vercel, añade `MONGODB_URI` con la URI real de Atlas como variable de entorno. No la guardes en este README ni en GitHub. Después del despliegue, actualiza el enlace siguiente y prueba `/api/products` y `/api/products/:id`.
+En la configuración del proyecto de Vercel, añade `MONGODB_URI` con la URI real de Atlas como variable de entorno. No la guardes en este README ni en GitHub. Prueba `/api/products` y `/api/products/:id` en la URL pública.
 
-- URL de la API desplegada: pendiente de despliegue.
+- URL de la API desplegada: [https://nana-nocturna-api.vercel.app](https://nana-nocturna-api.vercel.app/).
 
 ## Flujo de una petición
 
