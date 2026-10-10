@@ -13,7 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/auth", authRoutes);
+
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
     message: "API de Nana Nocturna funcionando"
   });
 });
-
+app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 
 app.use(notFound);
