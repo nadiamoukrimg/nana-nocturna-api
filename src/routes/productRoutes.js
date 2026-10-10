@@ -7,17 +7,19 @@ const {
   deleteProduct
 } = require("../controllers/productController");
 
+const requireAuth = require("../middlewares/require-auth");
+
 const router = express.Router();
 
 router
   .route("/")
   .get(getProducts)
-  .post(createProduct);
+  .post(requireAuth, createProduct);
 
 router
   .route("/:id")
   .get(getProductById)
-  .put(updateProduct)
-  .delete(deleteProduct);
-
+  .put(requireAuth, updateProduct)
+  .delete(requireAuth, deleteProduct);
+  
 module.exports = router;
