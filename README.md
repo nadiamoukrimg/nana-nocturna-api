@@ -1,142 +1,116 @@
 # API Nana Nocturna
 
-API REST para consultar y gestionar las piezas de Nana Nocturna. Está construida con Node.js, Express y Mongoose, y se conecta a la base de datos `nana_nocturna` de MongoDB Atlas.
+Este es el backend de mi proyecto Nana Nocturna. Es una API REST creada con Node.js, Express y Mongoose. Permite consultar las piezas de la colección y, con una cuenta de administrador, crearlas, modificarlas o eliminarlas. Los datos se guardan en MongoDB Atlas.
 
 - Repositorio: [nana-nocturna-api](https://github.com/nadiamoukrimg/nana-nocturna-api)
-- URL de Vercel: [https://nana-nocturna-api.vercel.app](https://nana-nocturna-api.vercel.app/).
+- API desplegada: [https://nana-nocturna-api.vercel.app](https://nana-nocturna-api.vercel.app)
 
 ## Tecnologías
 
-- Node.js
-- Express
-- Mongoose
-- MongoDB Atlas
+- Node.js y Express
+- MongoDB Atlas y Mongoose
+- bcryptjs para comprobar contraseñas cifradas
+- jsonwebtoken para crear y comprobar tokens
+- Vercel para el despliegue
 
-## Estructura del backend
+## Organización
 
 ```text
-nana-nocturna-api/
+backend/
 ├── src/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   │   └── productController.js
-│   ├── middlewares/
-│   │   ├── errorHandler.js
-│   │   └── notFound.js
-│   ├── models/
-│   │   ├── Pieza.js
-│   │   └── Usuarios.js
-│   ├── routes/
-│   │   └── productRoutes.js
-│   ├── utils/
-│   │   └── httpError.js
-│   └── app.js
+│   ├── config/          # Conexión con MongoDB Atlas
+│   ├── controllers/     # Lógica de piezas y autenticación
+│   ├── middlewares/     # Autenticación, permisos y gestión de errores
+│   ├── models/          # Esquemas Pieza y User
+│   ├── routes/          # Rutas de la API
+│   ├── utils/           # Funciones auxiliares
+│   └── app.js           # Configuración de Express
 ├── tests/
 │   ├── requests.http
 │   └── API Nana Nocturna.postman_collection.json
 ├── .env.example
-├── .gitignore
 ├── package.json
 └── server.js
 ```
 
-### Responsabilidades
-
-- `src/config/db.js`: conecta Mongoose con MongoDB Atlas usando `MONGODB_URI`.
-- `src/models/`: define los esquemas de Mongoose.
-- `src/controllers/productController.js`: implementa las operaciones CRUD de piezas.
-- `src/routes/productRoutes.js`: enlaza los métodos HTTP con sus controladores.
-- `src/middlewares/`: devuelve respuestas JSON para rutas inexistentes y errores.
-- `src/app.js`: configura Express y sus rutas; Vercel detecta y despliega esta aplicación Express.
-- `server.js`: inicia el servidor local.
-- `tests/`: contiene las peticiones de prueba para REST Client y Postman.
-
 ## Modelos
 
-### Pieza
+El modelo `Pieza` está conectado a la colección `piezas` de Atlas. Tiene campos como `nombre`, `descripcion`, `categoria`, `precio`, `estado`, `disponible`, `imagen`, `imagenesGaleria`, `materiales`, `medidas`, `coleccion`, `piezaUnica`, `personalizable`, `fechaCreacion` y `creadoPor`.
 
-El modelo `Pieza` usa explícitamente la colección existente `piezas`. Incluye estos campos: `nombre`, `descripcion`, `categoria`, `precio`, `estado`, `disponible`, `imagen`, `imagenesGaleria`, `materiales`, `medidas`, `coleccion`, `piezaUnica`, `personalizable`, `fechaCreacion` y `creadoPor`.
+El modelo `User` utiliza la colección `usuarios`. Guarda `nombre`, `email`, `password`, `rol`, `activo` y `fechaRegistro`. Las contraseñas se guardan como hashes, no como texto normal. Los roles usados son `admin` y `cliente`.
 
-El campo `medidas` admite valores flexibles para respetar los datos existentes en Atlas. El precio debe ser un número entero no negativo.
+## Rutas disponibles
 
-### User
+| Método | Ruta | Acceso | Función |
+|---|---|---|---|
+| GET | `/api/products` | Público | Lista todas las piezas. |
+| GET | `/api/products/:id` | Público | Devuelve una pieza por su ID. |
+| POST | `/api/products` | Administrador | Crea una pieza. |
+| PUT | `/api/products/:id` | Administrador | Actualiza una pieza. |
+| DELETE | `/api/products/:id` | Administrador | Elimina una pieza. |
+| POST | `/api/auth/login` | Público | Comprueba el email y la contraseña e inicia sesión. |
 
-El modelo `User` usa explícitamente la colección `usuarios`. Su esquema incluye `nombre`, `email`, `password`, `rol`, `activo` y `fechaRegistro`. Se define el modelo, pero no se exponen rutas CRUD de usuarios en esta API.
+Para las operaciones de administrador se envía el token recibido al iniciar sesión mediante la cabecera `Authorization: Bearer <token>`. Una petición sin iniciar sesión responde con `401`; una cuenta que no es administradora recibe `403`.
 
-## Endpoints
-
-El CRUD principal se publica bajo `/api/products` para cumplir el enunciado. Internamente, esas rutas consultan el modelo `Pieza` y la colección `piezas`.
-
-| Método | Ruta | Descripción |
-|---|---|---|
-| GET | `/api/products` | Devuelve todas las piezas. |
-| GET | `/api/products/:id` | Devuelve una pieza por su ID. |
-| POST | `/api/products` | Crea una pieza. |
-| PUT | `/api/products/:id` | Actualiza una pieza por su ID. |
-| DELETE | `/api/products/:id` | Elimina una pieza por su ID. |
-
-Las respuestas son JSON. Las rutas inexistentes responden con estado `404`; los errores de validación se devuelven como JSON con un estado de error adecuado.
-
-## Requisitos previos
-
-- Node.js y npm instalados.
-- Un clúster de MongoDB Atlas y un usuario de base de datos.
-- Acceso de red en Atlas para la IP que hace la conexión.
+Las respuestas de la API están en JSON. También hay middlewares para las rutas inexistentes y para gestionar errores.
 
 ## Instalación y ejecución local
 
-Abre una terminal en la carpeta `backend` e instala las dependencias:
+Necesitas tener Node.js instalado. Desde una terminal, entra en la carpeta `backend` y ejecuta:
 
 ```powershell
 npm.cmd install
+Copy-Item .env.example .env
 ```
 
-Crea `backend/.env` a partir de `.env.example` si todavía no existe. Configura las variables indicadas abajo y arranca el servidor:
+Completa las variables de `backend/.env` con los datos de tu entorno y arranca el servidor:
 
 ```powershell
 npm.cmd run dev
 ```
 
-La API local queda disponible en `http://localhost:3000`.
+La API local estará en `http://localhost:3000`.
 
 ## Variables de entorno
 
-Configura estas variables en `.env`:
+El archivo `.env.example` indica los nombres de las variables necesarias:
 
 ```env
-MONGODB_URI=mongodb+srv://<usuario>:<contraseña>@<cluster>.mongodb.net/nana_nocturna?retryWrites=true&w=majority&appName=Cluster0
+MONGODB_URI=
 PORT=3000
+JWT_SECRET=
 ```
 
-Reemplaza los valores de ejemplo por los de tu clúster. No subas `.env` a GitHub ni compartas la URI real. `.gitignore` excluye `.env`, `node_modules` y `.vercel`.
+- `MONGODB_URI`: cadena privada de conexión de MongoDB Atlas. La base de datos utilizada es `nana_nocturna`.
+- `PORT`: puerto local del servidor.
+- `JWT_SECRET`: secreto que se usa para firmar los tokens de inicio de sesión.
+
+No subas el archivo `.env` ni compartas sus valores. En Vercel, las variables se configuran en los ajustes del proyecto, no dentro del código.
 
 ## Pruebas
 
-Las peticiones se pueden enviar localmente desde:
+En `tests/requests.http` están las peticiones para probar la API con la extensión REST Client de Visual Studio Code. También se incluye una colección que se puede importar en Postman.
 
-- `tests/requests.http`, usando la extensión REST Client de VS Code.
-- `tests/API Nana Nocturna.postman_collection.json`, importando la colección en Postman.
+Las pruebas incluyen consultas, inicio de sesión y operaciones protegidas. Para probar PUT y DELETE, utiliza el ID de una pieza de prueba. DELETE elimina de Atlas la pieza indicada. Antes de subir los archivos a GitHub, deja marcadores en lugar de tokens reales y no incluyas contraseñas.
 
-El POST crea un documento nuevo. Para PUT y DELETE, utiliza el ID devuelto por el POST de prueba y comprueba que corresponde a ese documento antes de enviarlos. DELETE elimina el documento indicado de Atlas.
+## Despliegue
 
-## Despliegue en Vercel
+La API está desplegada en Vercel. La variable `MONGODB_URI` y el secreto `JWT_SECRET` se configuran en las variables de entorno del proyecto de Vercel. La dirección base es:
 
-El backend se encuentra en la raíz de este repositorio. Importa el repositorio desde GitHub en Vercel y deja **Root Directory** en `./`. Vercel puede detectar la aplicación Express exportada desde `src/app.js`.
+```text
+https://nana-nocturna-api.vercel.app
+```
 
-En la configuración del proyecto de Vercel, añade `MONGODB_URI` con la URI real de Atlas como variable de entorno. No la guardes en este README ni en GitHub. Prueba `/api/products` y `/api/products/:id` en la URL pública.
-
-- URL de la API desplegada: [https://nana-nocturna-api.vercel.app](https://nana-nocturna-api.vercel.app/).
-
-## Flujo de una petición
+## Flujo de la API
 
 ```mermaid
 flowchart LR
     Cliente --> Ruta
-    Ruta --> Controlador
+    Ruta --> Middleware
+    Middleware --> Controlador
     Controlador --> Modelo
-    Modelo --> Atlas
-    Controlador --> RespuestaJSON
-    Controlador --> ErrorHandler
-    Ruta --> NotFound
+    Modelo --> Atlas[(MongoDB Atlas)]
+    Atlas --> Modelo
+    Modelo --> Controlador
+    Controlador --> JSON
 ```
