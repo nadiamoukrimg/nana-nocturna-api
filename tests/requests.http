@@ -1,5 +1,7 @@
-@baseUrl = http://localhost:3000
-@id = 6ab56d09431504c85e04cabb
+@baseUrl = https://nana-nocturna-api.vercel.app
+@id = ID_DE_UNA_PIEZA_DE_PRUEBA
+@adminToken = PEGAR_AQUI_EL_TOKEN_ADMIN
+@clientToken = PEGAR_AQUI_EL_TOKEN_CLIENTE
 
 ### Obtener todas las piezas
 GET {{baseUrl}}/api/products
@@ -10,6 +12,7 @@ GET {{baseUrl}}/api/products/{{id}}
 ### Crear una pieza
 POST {{baseUrl}}/api/products
 Content-Type: application/json
+Authorization: Bearer {{adminToken}}
 
 {
   "nombre": "Moonlit Revenant - Prueba HTTP",
@@ -43,6 +46,7 @@ Content-Type: application/json
 ### Actualizar esta pieza
 PUT {{baseUrl}}/api/products/{{id}}
 Content-Type: application/json
+Authorization: Bearer {{adminToken}}
 
 {
   "nombre": "Moonlit Revenant",
@@ -75,3 +79,11 @@ Content-Type: application/json
 
 ### Eliminar esta pieza
 DELETE {{baseUrl}}/api/products/{{id}}
+Authorization: Bearer {{adminToken}}
+
+### Cliente: creación bloqueada (esperado 403)
+POST {{baseUrl}}/api/products
+Content-Type: application/json
+Authorization: Bearer {{clientToken}}
+
+{}
